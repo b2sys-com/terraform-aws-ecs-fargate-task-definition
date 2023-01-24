@@ -47,3 +47,8 @@ output "container_name" {
   description = "Name of the container"
   value       = var.container_name
 }
+
+output "name_prefix" {
+  description = "Name of the container"
+  value       = var.name_prefix
+}
