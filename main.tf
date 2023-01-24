@@ -1,31 +1,31 @@
 #------------------------------------------------------------------------------
 # AWS ECS Task Execution Role
 #------------------------------------------------------------------------------
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name                 = "${var.name_prefix}-ecs-task-execution-role"
-  assume_role_policy   = file("${path.module}/files/iam/ecs_task_execution_iam_role.json")
-  permissions_boundary = var.permissions_boundary
-  tags                 = var.tags
-}
+#resource "aws_iam_role" "ecs_task_execution_role" {
+#  name                 = "${var.name_prefix}-ecs-task-execution-role"
+#  assume_role_policy   = file("${path.module}/files/iam/ecs_task_execution_iam_role.json")
+#  permissions_boundary = var.permissions_boundary
+#  tags                 = var.tags
+#}
 
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy_attach" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:${var.iam_partition}:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
+#resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy_attach" {
+#  role       = aws_iam_role.ecs_task_execution_role.name
+#  policy_arn = "arn:${var.iam_partition}:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+#}
 
-resource "aws_iam_policy" "ecs_task_execution_role_custom_policy" {
-  count       = length(var.ecs_task_execution_role_custom_policies)
-  name        = "${var.name_prefix}-ecs-task-execution-role-custom-policy-${count.index}"
-  description = "A custom policy for ${var.name_prefix}-ecs-task-execution-role IAM Role"
-  policy      = var.ecs_task_execution_role_custom_policies[count.index]
-  tags        = var.tags
-}
+#resource "aws_iam_policy" "ecs_task_execution_role_custom_policy" {
+#  count       = length(var.ecs_task_execution_role_custom_policies)
+#  name        = "${var.name_prefix}-ecs-task-execution-role-custom-policy-${count.index}"
+#  description = "A custom policy for ${var.name_prefix}-ecs-task-execution-role IAM Role"
+#  policy      = var.ecs_task_execution_role_custom_policies[count.index]
+#  tags        = var.tags
+#}
 
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_custom_policy" {
-  count      = length(var.ecs_task_execution_role_custom_policies)
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = aws_iam_policy.ecs_task_execution_role_custom_policy[count.index].arn
-}
+#resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_custom_policy" {
+#  count      = length(var.ecs_task_execution_role_custom_policies)
+#  role       = aws_iam_role.ecs_task_execution_role.name
+#  policy_arn = aws_iam_policy.ecs_task_execution_role_custom_policy[count.index].arn
+#}
 
 #------------------------------------------------------------------------------
 # ECS Task Definition
